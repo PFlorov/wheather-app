@@ -1,2 +1,0 @@
-# wheather-app
- 
