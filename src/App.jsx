@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "./components/Card";
+import { Dimmer, Loader } from "semantic-ui-react";
 
 function App() {
   const [lat, setLat] = useState([]);
@@ -29,7 +30,15 @@ function App() {
 
   return (
     <>
-      <Card weatherData={data} />
+      {typeof data.main != "undefined" ? (
+        <Card weatherData={data} />
+      ) : (
+        <div>
+          <Dimmer active>
+            <Loader>Loading..</Loader>
+          </Dimmer>
+        </div>
+      )}
     </>
   );
 }

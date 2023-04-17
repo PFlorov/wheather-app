@@ -1,36 +1,58 @@
 import React from "react";
-import { Card } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import moment from "moment";
+import "../styles/styles.css";
+
+const refreshButton = () => {
+  window.location.reload();
+};
 
 const CardComponent = ({ weatherData }) => (
-  <Card>
-    <Card.Content>
-      <Card.Header className="header">{weatherData.name}</Card.Header>
+  <div className="main">
+    <div className="top">
+      <p className="header">{weatherData.name}</p>
+      <Button
+        className="button"
+        inverted
+        color="blue"
+        circular
+        icon="refresh"
+        onClick={refreshButton}
+      />
+    </div>
+    <div className="flex">
+      <p className="day">
+        {moment().format("dddd")}, <span>{moment().format("LL")}</span>
+      </p>
+      <p className="description">{weatherData.weather[0].main}</p>
+    </div>
+
+    <div className="flex">
       {weatherData && weatherData.main && (
         <p>Temperature: {weatherData.main.temp} &deg;C</p>
       )}
-      {weatherData && weatherData.sys && (
-        <p>
-          Sunrise:{" "}
-          {new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-IN")}
-        </p>
-      )}
-      {weatherData && weatherData.sys && (
-        <p>
-          Sunset:{" "}
-          {new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-IN")}
-        </p>
-      )}
-      {weatherData && weatherData.clouds && (
-        <p>Cloudiness: {weatherData.clouds.all} %</p>
-      )}
+
       {weatherData && weatherData.main && (
         <p>Humidity: {weatherData.main.humidity} %</p>
       )}
-      <p>Day: {moment().format("dddd")}</p>
-      <p>Date: {moment().format("LL")}</p>
-    </Card.Content>
-  </Card>
+    </div>
+
+    <div className="flex">
+      {weatherData && weatherData.sys && (
+        <p>
+          Sunrise:
+          {new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-IN")}
+        </p>
+      )}
+
+      {weatherData && weatherData.sys && (
+        <p>
+          Sunset:
+          {new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-IN")}
+        </p>
+      )}
+    </div>
+  </div>
 );
 
 export default CardComponent;
